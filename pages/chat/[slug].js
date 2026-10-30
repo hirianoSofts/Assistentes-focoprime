@@ -18,7 +18,6 @@ export async function getServerSideProps({ params }) {
       return { props: { error: true, slug } };
     }
 
-    // Envia ao navegador apenas os campos necessários para apresentar o assistente.
     const publicAssistant = {
       name: assistant.name || "Assistente FocoPrime",
       description: assistant.description || "",
@@ -39,6 +38,7 @@ export default function PublicChat({ error, slug, assistant }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isRotating, setIsRotating] = useState(false);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -50,6 +50,19 @@ export default function PublicChat({ error, slug, assistant }) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
+
+  // Função para iniciar nova conversa com animação no botão +
+  function handleNewChat() {
+    setIsRotating(true);
+    setTimeout(() => setIsRotating(false), 400);
+
+    if (assistant?.welcomeMessage) {
+      setMessages([{ role: "assistant", content: assistant.welcomeMessage }]);
+    } else {
+      setMessages([]);
+    }
+    setInput("");
+  }
 
   async function sendMessage(event) {
     event.preventDefault();
@@ -111,6 +124,7 @@ export default function PublicChat({ error, slug, assistant }) {
 
       <main className="page-shell" style={{ "--primary": assistant.themeColor }}>
         <section className="chat-container">
+          {/* Cabeçalho fixo com logótipo no lado esquerdo */}
           <header className="chat-header">
             {assistant.logoUrl ? (
               <img src={assistant.logoUrl} alt="" className="chat-avatar" />
@@ -124,6 +138,7 @@ export default function PublicChat({ error, slug, assistant }) {
             <span className="online-indicator" aria-label="Online" />
           </header>
 
+          {/* Área de mensagens */}
           <div className="chat-messages" aria-live="polite">
             {messages.map((message, index) => (
               <div key={`${index}-${message.role}`} className={`message ${message.role === "user" ? "user" : "ai"}`}>
@@ -134,21 +149,33 @@ export default function PublicChat({ error, slug, assistant }) {
             <div ref={messagesEndRef} />
           </div>
 
-          <form onSubmit={sendMessage} className="chat-input-area">
-            <input
-              type="text"
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              placeholder="Digite sua mensagem..."
-              className="chat-input"
-              aria-label="Mensagem"
-              disabled={loading}
-            />
-            <button type="submit" className="send-btn" disabled={!input.trim() || loading} aria-label="Enviar mensagem">
-              <i className="fi fi-rr-paper-plane" />
-            </button>
-          </form>
-          <footer className="chat-footer">Criado com <strong>FocoPrime</strong></footer>
+          {/* Barra de mensagem fixa com botão + à esquerda e enviar à direita */}
+          <div className="chat-input-wrapper">
+            <form onSubmit={sendMessage} className="chat-input-area">
+              <button
+                type="button"
+                onClick={handleNewChat}
+                className={`plus-btn ${isRotating ? "animate" : ""}`}
+                aria-label="Nova conversa"
+                title="Nova conversa"
+              >
+                <i className="fi fi-rr-plus" />
+              </button>
+              <input
+                type="text"
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                placeholder="Digite sua mensagem..."
+                className="chat-input"
+                aria-label="Mensagem"
+                disabled={loading}
+              />
+              <button type="submit" className="send-btn" disabled={!input.trim() || loading} aria-label="Enviar mensagem">
+                <i className="fi fi-rr-paper-plane" />
+              </button>
+            </form>
+            <footer className="chat-footer">powered by <strong>FocoPrime</strong></footer>
+          </div>
         </section>
       </main>
     </>
