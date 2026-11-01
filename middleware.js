@@ -13,7 +13,14 @@ export function middleware(req) {
 
     // Ignora subdomínios reservados como 'www'
     if (subdomain && subdomain !== 'www') {
-      // Reescreve internamente para a pasta /chat/[slug] mantendo a URL limpa no navegador
+      // Se o usuário acessou a raiz do subdomínio (ex: /), forçamos o rewrite para /chat/[subdomain]
+      if (url.pathname === '/') {
+        return NextResponse.rewrite(
+          new URL(`/chat/${subdomain}`, req.url)
+        );
+      }
+
+      // Para qualquer outro caminho dentro do subdomínio
       return NextResponse.rewrite(
         new URL(`/chat/${subdomain}${url.pathname}${url.search}`, req.url)
       );
