@@ -1,0 +1,470 @@
+/* STYLE.CSS */
+/* ==========================================================================
+   RESET & SYSTEM VARIABLES (Stripe/GitHub Light Mode Theme - Dashboard Base)
+   ========================================================================== */
+:root {
+  --font-main: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Color Palette */
+  --bg-app: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f1f5f9;
+  
+  --border-color: #e2e8f0;
+  --border-hover: #cbd5e1;
+  
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+  
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* ==========================================================================
+   CABEÇALHO MINIMALISTA
+   ========================================================================== */
+.studio-navbar {
+  height: 64px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 39px; /* Altura estimada da barra de promo para empurrar a navbar para baixo dela */
+  z-index: 100;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .studio-navbar {
+    top: 65px; /* Caso a barra de promo quebre linha no telemóvel, ajusta o topo da navbar */
+  }
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.menu-toggle-btn {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  color: var(--text-main);
+  font-size: 18px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.menu-toggle-btn:hover {
+  background: var(--bg-subtle);
+  color: var(--primary);
+}
+
+/* ==========================================================================
+   HERO SECTION (COM NÓS DE IMAGEM E ANIMAÇÃO LASER IA)
+   ========================================================================== */
+.hero-section {
+  padding: 40px 24px 50px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.hero-visual-wrapper {
+  width: 100%;
+  max-width: 720px;
+  height: 260px;
+  position: relative;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(79, 70, 229, 0.06) 0%, transparent 70%);
+}
+
+/* Efeito de Feixe / Laser IA Suave */
+.ai-wave-glow {
+  position: absolute;
+  width: 85%;
+  height: 90px;
+  background: linear-gradient(90deg, rgba(79, 70, 229, 0.15), rgba(143, 0, 255, 0.25), rgba(59, 130, 246, 0.15));
+  filter: blur(35px);
+  border-radius: var(--radius-full);
+  animation: aiLaserPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes aiLaserPulse {
+  0% { transform: scale(0.95); opacity: 0.5; filter: blur(30px); }
+  50% { transform: scale(1.05); opacity: 0.8; filter: blur(40px); }
+  100% { transform: scale(0.98); opacity: 0.6; filter: blur(35px); }
+}
+
+.ai-nodes-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Círculos com Imagem e Animação estilo IA */
+.node-pill {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+  animation: floatNode 3s ease-in-out infinite;
+}
+
+.node-pill img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.node-pill:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
+  transform: scale(1.1);
+}
+
+.node-pill:hover img {
+  transform: scale(1.15);
+}
+
+.node-top { 
+  transform: translateY(-30px); 
+  animation-delay: 0s; 
+}
+.node-bottom-left { 
+  transform: translateY(25px); 
+  animation-delay: 1s; 
+}
+.node-bottom-right { 
+  transform: translateY(25px); 
+  animation-delay: 2s; 
+}
+
+@keyframes floatNode {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.03); }
+}
+
+.hero-title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  color: var(--text-main);
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.btn-get-started {
+  background: var(--text-main);
+  color: #ffffff;
+  padding: 11px 22px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.btn-get-started:hover {
+  background: var(--primary);
+}
+
+.btn-docs {
+  background: var(--bg-surface);
+  color: var(--text-main);
+  padding: 11px 22px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.btn-docs:hover {
+  background: var(--bg-subtle);
+  border-color: var(--border-hover);
+}
+
+/* ==========================================================================
+   BARRA DE MODELOS (POSICIONADA NA HERO, ABAIXO DOS BOTÕES)
+   ========================================================================== */
+.models-bar {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface);
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+  margin: 0 auto;
+}
+
+.models-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.models-avatars {
+  display: flex;
+  align-items: center;
+}
+
+.models-avatars img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--bg-surface);
+  margin-left: -10px;
+}
+
+.models-avatars img:first-child {
+  margin-left: 0;
+}
+
+.models-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 2px;
+}
+
+.models-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-light);
+  letter-spacing: 0.05em;
+}
+
+.models-desc {
+  font-size: 13px;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.models-more {
+  color: var(--primary);
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.models-more:hover {
+  text-decoration: underline;
+}
+
+.models-action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-app);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.models-action-btn:hover {
+  background: var(--bg-subtle);
+  color: var(--text-main);
+  border-color: var(--border-hover);
+}
+
+/* ==========================================================================
+   SEÇÃO DE CARDS DE RECURSOS
+   ========================================================================== */
+.features-section {
+  max-width: 1240px;
+  margin: 40px auto 70px auto;
+  padding: 0 24px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.feature-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+}
+
+.feature-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: #e0e7ff;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.feature-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
+
+.feature-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   RODAPÉ
+   ========================================================================== */
+.studio-footer {
+  border-top: 1px solid var(--border-color);
+  padding: 32px 24px;
+  background: var(--bg-surface);
+}
+
+.footer-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 18px;
+}
+
+.footer-links a:hover {
+  color: var(--text-main);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .hero-title { font-size: 28px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .footer-container { flex-direction: column; gap: 12px; text-align: center; }
+  .models-bar { max-width: 100%; }
+}
+
+/* Correção universal para ícones Flaticon (uicons) */
+i[class^="fi-"], 
+i[class*=" fi-"] {
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
