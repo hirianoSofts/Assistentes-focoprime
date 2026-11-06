@@ -1,0 +1,222 @@
+/* ==========================================================================
+   MODERN FOOTER STYLES (Stripe/GitHub Light Mode Theme)
+   ========================================================================== */
+.studio-footer {
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  padding: 60px 24px 24px 24px;
+  font-family: var(--font-main);
+  text-align: left;
+}
+
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.footer-col-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.footer-brand-logo {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+}
+
+.footer-brand-desc {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 320px;
+  text-align: left;
+}
+
+.footer-social-links {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.footer-social-link {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  transition: var(--transition);
+  border: 1px solid var(--border-color);
+}
+
+.footer-social-link:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.footer-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+.footer-links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.footer-links-list a {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  transition: var(--transition);
+  text-align: left;
+}
+
+.footer-links-list a:hover {
+  color: var(--primary);
+}
+
+.footer-contact-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  align-items: flex-start;
+}
+
+.footer-contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.footer-contact-list i {
+  color: var(--primary);
+  font-size: 15px;
+}
+
+.footer-bottom {
+  max-width: 1280px;
+  margin: 24px auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-light);
+  text-align: left;
+}
+
+.footer-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-legal-links a:hover {
+  color: var(--text-main);
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE DO RODAPÉ (ALINHAMENTO À ESQUERDA NO MOBILE)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .studio-footer {
+    padding: 40px 16px 20px 16px;
+    text-align: left;
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 16px;
+    padding-bottom: 32px;
+    text-align: left;
+  }
+
+  .footer-col,
+  .footer-col-brand {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .footer-col-brand {
+    grid-column: span 2;
+  }
+
+  .footer-brand-desc {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .footer-heading {
+    text-align: left;
+  }
+
+  .footer-links-list,
+  .footer-contact-list {
+    align-items: flex-start;
+  }
+
+  .footer-links-list a,
+  .footer-contact-list li {
+    text-align: left;
+  }
+
+  .footer-social-links {
+    justify-content: flex-start;
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 12px;
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 8px;
+  }
+}
