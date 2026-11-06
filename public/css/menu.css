@@ -1,0 +1,160 @@
+/* ==========================================================================
+   MOBILE MENU & DESKTOP NAVBAR ACTIONS (Stripe/GitHub Light Mode Theme)
+   ========================================================================== */
+
+/* Esconde o botão de menu por padrão (visível apenas no mobile) */
+.menu-toggle-btn {
+  display: none;
+}
+
+/* Botões de Ação na Versão Desktop (Direita da Navbar) */
+.desktop-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-btn-login {
+  background: transparent;
+  color: var(--text-main);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 13.5px;
+  transition: var(--transition);
+  border: 1px solid var(--border-color);
+}
+
+.nav-btn-login:hover {
+  background: var(--bg-subtle);
+  border-color: var(--border-hover);
+}
+
+.nav-btn-signup {
+  background: var(--text-main);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 13.5px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-btn-signup:hover {
+  background: var(--primary);
+}
+
+/* Menu Dropdown Móvel (Abaixo do Cabeçalho) */
+.mobile-dropdown-menu {
+  position: fixed;
+  top: 105px; /* Altura combinada da promo-bar + navbar */
+  left: 0;
+  width: 100%;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 99;
+  
+  /* Estados de Animação Suave */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+/* Links do menu mobile */
+.mobile-dropdown-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 8px 4px;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--radius-sm);
+}
+
+.mobile-dropdown-link i {
+  font-size: 15px;
+  color: var(--primary);
+}
+
+.mobile-dropdown-link:hover {
+  color: var(--primary);
+  background: var(--bg-subtle);
+}
+
+/* Linha horizontal para os botões ficarem lado a lado no mobile */
+.mobile-buttons-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding-top: 4px;
+}
+
+.mobile-dropdown-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 12px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.mobile-btn-login {
+  background: var(--bg-subtle);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.mobile-btn-login:hover {
+  background: var(--border-color);
+}
+
+.mobile-btn-signup {
+  background: var(--text-main);
+  color: #ffffff;
+}
+
+.mobile-btn-signup:hover {
+  background: var(--primary);
+}
+
+/* ==========================================================================
+   MEDIA QUERY: DISPOSITIVOS MÓVEIS (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Oculta os botões da versão desktop no mobile */
+  .desktop-nav-actions {
+    display: none;
+  }
+
+  /* Exibe o botão de menu hambúrguer no mobile */
+  .menu-toggle-btn {
+    display: flex;
+  }
+}
