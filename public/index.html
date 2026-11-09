@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="css/promo.css">
   <link rel="stylesheet" href="css/menu.css">
   <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/parceiros.css">
+  <link rel="stylesheet" href="css/news.css"> <!-- Novo arquivo de estilos para Notícias -->
 </head>
 <body>
 
@@ -41,13 +43,11 @@
         <img src="assets/logo.png" alt="FocoPrime Logo" class="brand-logo-img">
       </a>
       
-      <!-- Ações na Versão Desktop (Sem botão de menu) -->
       <div class="desktop-nav-actions">
         <a href="https://dashboard.focoprime.online/auth/login/" class="nav-btn-login">Entrar</a>
         <a href="https://dashboard.focoprime.online/auth/cadastro/" class="nav-btn-signup">Cadastrar-se</a>
       </div>
 
-      <!-- Botão de Menu para Versão Mobile -->
       <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Abrir Menu">
         <i class="fi fi-rr-menu-burger" id="menuIcon"></i>
       </button>
@@ -71,8 +71,6 @@
 
   <!-- Hero Section -->
   <section class="hero-section">
-    
-    <!-- Animação / Onda Laser IA e Nós Flutuantes com Imagens -->
     <div class="hero-visual-wrapper">
       <div class="ai-wave-glow"></div>
       <div class="ai-nodes-container">
@@ -88,11 +86,9 @@
       </div>
     </div>
 
-    <!-- Título & Subtítulo -->
-    <h1 class="hero-title">FocoPrime Live API</h1>
+    <h1 class="hero-title">FocoPrime Live AI</h1>
     <p class="hero-subtitle">Crie experiências de IA em tempo real</p>
 
-    <!-- Botões -->
     <div class="hero-buttons hero-actions">
       <a href="https://dashboard.focoprime.online/auth/cadastro/" class="btn-get-started">
         <i class="fi fi-rr-sign-in-alt"></i>
@@ -104,7 +100,6 @@
       </a>
     </div>
 
-    <!-- Barra de Modelos Logo Abaixo dos Botões -->
     <div class="models-bar">
       <div class="models-bar-left">
         <div class="models-avatars">
@@ -121,13 +116,37 @@
         <i class="fi fi-rr-arrow-right"></i>
       </a>
     </div>
-
   </section>
+  
+  <!-- Barra de Parceiros de Ponta a Ponta -->
+  <section class="partners-section">
+    <div class="partners-slider">
+      <div class="partners-track">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="BMW" class="partner-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="partner-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="partner-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" class="partner-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" alt="Microsoft" class="partner-logo">
+        <img src="https://vilataxi.me/assets/vilataxi-logo.png" alt="VilaTaxi" class="partner-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Nvidia_logo.svg" alt="Nvidia" class="partner-logo">
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="BMW" class="partner-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="partner-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="partner-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" class="partner-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" alt="Microsoft" class="partner-logo">
+        <img src="https://vilataxi.me/assets/vilataxi-logo.png" alt="VilaTaxi" class="partner-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Nvidia_logo.svg" alt="Nvidia" class="partner-logo">
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção de Notícias e Histórias (Componente Modular) -->
+  <studio-news></studio-news>
 
   <!-- Recursos -->
   <section class="features-section" id="documentacao">
     <div class="features-grid">
-      
       <div class="feature-card">
         <div class="feature-icon">
           <i class="fi fi-rr-bolt"></i>
@@ -151,7 +170,6 @@
         <h3>Escalabilidade Empresarial</h3>
         <p>Infraestrutura pronta para produção com segurança corporativa e chaves de API flexíveis.</p>
       </div>
-
     </div>
   </section>
 
@@ -159,6 +177,7 @@
   <studio-footer></studio-footer>
 
   <!-- Scripts Externos -->
+  <script src="components/news.js" defer></script>
   <script src="components/footer.js" defer></script>
   <script src="main.js"></script>
 </body>
