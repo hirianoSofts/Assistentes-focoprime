@@ -1,0 +1,233 @@
+/* ==========================================================================
+   ESTILO DE NOTÍCIAS & HISTÓRIAS (ESTILO RUNWAY FIEL)
+   ========================================================================== */
+.news-section {
+  padding: 40px 20px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.news-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Carrossel Superior (Imagens com cantos arredondados, título sobreposto e setas laterais) */
+.runway-hero-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+.runway-hero-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  width: 100%;
+  padding: 4px 0;
+}
+
+.runway-hero-track::-webkit-scrollbar {
+  display: none;
+}
+
+.runway-image-card {
+  min-width: 240px;
+  width: 210px;
+  height: 210px;
+  flex: 0 0 auto;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  scroll-snap-align: start;
+  background: #000;
+  cursor: pointer;
+}
+
+.runway-image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.runway-image-card:hover img {
+  transform: scale(1.05);
+}
+
+.runway-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.runway-card-title {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  z-index: 2;
+}
+
+/* Botões de navegação lateral (setas) */
+.runway-arrow-btn {
+  position: absolute;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.runway-arrow-btn:hover {
+  background: #ffffff;
+  transform: scale(1.05);
+}
+
+.runway-arrow-btn.prev {
+  left: -18px;
+}
+
+.runway-arrow-btn.next {
+  right: -18px;
+}
+
+/* Título da seção principal inferior */
+.news-main-title {
+  margin-bottom: 20px;
+}
+
+.news-main-title h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+/* Lista de Cards Inferiores */
+.news-runway-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.news-runway-item {
+  backgcround: var(--bg-app);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+}
+
+.news-runway-item:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-card);
+}
+
+.news-runway-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.news-runway-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.news-runway-content h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.news-runway-content p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Botão Preto Estilo Runway */
+.news-black-btn {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.news-black-btn:hover {
+  background: var(--primary);
+}
+
+/* Thumbnail à direita */
+.news-runway-thumb {
+  width: 200px;
+  height: 130px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+}
+
+.news-runway-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.news-runway-item:hover .news-runway-thumb img {
+  transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .news-runway-item {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    padding: 20px;
+  }
+  .news-runway-thumb {
+    width: 100%;
+    height: 140px;
+  }
+  .runway-arrow-btn {
+    display: none;
+  }
+}
