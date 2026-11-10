@@ -39,12 +39,12 @@ export default function PublicChat({ error, slug, assistant }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isSpinning, setIsSpinning] = useState(false);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    if (assistant?.welcomeMessage) {
-      setMessages([{ role: "assistant", content: assistant.welcomeMessage }]);
-    }
+    // Mantém o chat limpo inicialmente para exibir apenas a saudação centralizada
+    setMessages([]);
   }, [assistant]);
 
   useEffect(() => {
@@ -52,11 +52,9 @@ export default function PublicChat({ error, slug, assistant }) {
   }, [messages, loading]);
 
   const handleNewChat = () => {
-    if (assistant?.welcomeMessage) {
-      setMessages([{ role: "assistant", content: assistant.welcomeMessage }]);
-    } else {
-      setMessages([]);
-    }
+    setIsSpinning(true);
+    setTimeout(() => setIsSpinning(false), 500);
+    setMessages([]);
   };
 
   async function sendMessage(event) {
@@ -131,18 +129,20 @@ export default function PublicChat({ error, slug, assistant }) {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <a href="https://focoprime.online" target="_blank" rel="noreferrer" className="header-plan-badge">
-              Fazer upgrade
-            </a>
-            <button className="icon-btn" aria-label="Opções" onClick={handleNewChat} title="Reiniciar conversa">
-              <i className="fi fi-rr-refresh"></i>
+            <button 
+              className="icon-btn" 
+              aria-label="Nova conversa" 
+              onClick={handleNewChat} 
+              title="Nova conversa"
+            >
+              <i className={`fi fi-rr-refresh ${isSpinning ? "spin" : ""}`}></i>
             </button>
           </div>
         </header>
 
         {/* Corpo / Mensagens */}
         <main className="chat-body">
-          {messages.length === 0 || (messages.length === 1 && messages[0].content === assistant.welcomeMessage) ? (
+          {messages.length === 0 ? (
             <div className="welcome-container">
               <h1 className="brand-sparkle-heading">
                 <span className="brand-sparkle">✴</span>
@@ -169,7 +169,7 @@ export default function PublicChat({ error, slug, assistant }) {
           </div>
         </main>
 
-        {/* Rodapé com Input Estilo Claude */}
+        {/* Rodapé com Input */}
         <footer className="chat-footer-fixed">
           <form onSubmit={sendMessage} className="chat-input-box">
             <textarea
@@ -215,7 +215,7 @@ export default function PublicChat({ error, slug, assistant }) {
           </form>
 
           <div className="watermark">
-            powered by <strong>FocoPrime</strong>
+            powered by <a href="https://focoprime.online" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontWeight: '600' }}>FocoPrime</a>
           </div>
         </footer>
       </div>
