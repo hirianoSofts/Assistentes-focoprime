@@ -22,25 +22,25 @@ button, input {
   font: inherit;
 }
 
-/* Layout Principal Estilo Claude.ai */
+/* Layout Principal Estilo Claude.ai (Largura aumentada para 920px) */
 .chat-layout {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  max-width: 768px;
+  max-width: 920px;
   margin: 0 auto;
   position: relative;
   background: #ffffff;
 }
 
-/* Header Fixo Discreto */
+/* Header Fixo Discreto (Largura 920px) */
 .chat-header-fixed {
   position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 768px;
+  max-width: 920px;
   height: 60px;
   padding: 0 24px;
   display: flex;
@@ -79,20 +79,6 @@ button, input {
   color: #0f172a;
 }
 
-.header-plan-badge {
-  font-size: 12px;
-  color: #64748b;
-  background: #f1f5f9;
-  padding: 4px 10px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background 0.2s;
-}
-.header-plan-badge:hover {
-  background: #e2e8f0;
-}
-
 .icon-btn {
   background: transparent;
   border: none;
@@ -102,6 +88,15 @@ button, input {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Animação de rotação para nova conversa */
+.spin {
+  animation: spin 0.5s linear;
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Área de Mensagens */
@@ -178,14 +173,14 @@ button, input {
   font-style: italic;
 }
 
-/* Barra de Entrada de Texto Estilo Claude */
+/* Barra de Entrada de Texto (Largura aumentada para 920px) */
 .chat-footer-fixed {
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 768px;
+  max-width: 920px;
   padding: 16px 24px 20px;
   background: linear-gradient(to top, rgba(255,255,255,1) 80%, rgba(255,255,255,0));
   z-index: 100;
