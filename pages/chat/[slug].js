@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
-import ReactMarkdown from "react-markdown";
 
 const FALLBACK_DESCRIPTION = "Assistente inteligente FocoPrime";
 
@@ -157,13 +156,7 @@ export default function PublicChat({ error, slug, assistant }) {
                 key={`${index}-${message.role}`}
                 className={`message ${message.role === "user" ? "user" : "ai"}`}
               >
-                {message.role === "assistant" ? (
-                  <div className="markdown-body">
-                    <ReactMarkdown>{message.content}</ReactMarkdown>
-                  </div>
-                ) : (
-                  message.content
-                )}
+                {message.content}
               </div>
             ))}
             {loading && (
