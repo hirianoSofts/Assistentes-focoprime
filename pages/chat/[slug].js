@@ -180,7 +180,7 @@ export default function PublicChat({ error, slug, assistant }) {
                   sendMessage(e);
                 }
               }}
-              placeholder="Digite / para ver as Skills ou envie sua mensagem..."
+              placeholder="Pergunte qualquer coisa..."
               className="chat-input"
               rows={1}
               disabled={loading}
