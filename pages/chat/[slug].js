@@ -22,9 +22,10 @@ export async function getServerSideProps({ params }) {
       name: assistant.name || "Assistente FocoPrime",
       description: assistant.description || "",
       logoUrl: assistant.logoUrl || "",
-      themeColor: assistant.themeColor || "#da7756",
+      themeColor: assistant.themeColor || "#e05638",
       welcomeMessage: assistant.welcomeMessage || "",
-      systemPrompt: assistant.systemPrompt || "Você é um assistente útil."
+      systemPrompt: assistant.systemPrompt || "Você é um assistente útil.",
+      model: assistant.model || "Foco Wanga 3.0"
     };
 
     return { props: { error: false, slug, assistant: publicAssistant } };
@@ -38,7 +39,6 @@ export default function PublicChat({ error, slug, assistant }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isSpinning, setIsSpinning] = useState(false);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -52,8 +52,6 @@ export default function PublicChat({ error, slug, assistant }) {
   }, [messages, loading]);
 
   const handleNewChat = () => {
-    setIsSpinning(true);
-    setTimeout(() => setIsSpinning(false), 500);
     if (assistant?.welcomeMessage) {
       setMessages([{ role: "assistant", content: assistant.welcomeMessage }]);
     } else {
@@ -99,11 +97,10 @@ export default function PublicChat({ error, slug, assistant }) {
     return (
       <>
         <Head><title>Assistente não encontrado | FocoPrime</title></Head>
-        <main className="not-found">
+        <main className="not-found" style={{ display: 'grid', placeItems: 'center', height: '100vh', textAlign: 'center', padding: '20px' }}>
           <div>
-            <div className="not-found-mark">!</div>
-            <h1>Assistente não encontrado</h1>
-            <p>O agente de IA solicitado não existe ou foi desativado.</p>
+            <h1 style={{ fontSize: '24px', marginBottom: '8px' }}>Assistente não encontrado</h1>
+            <p style={{ color: '#64748b' }}>O agente de IA solicitado não existe ou foi desativado.</p>
           </div>
         </main>
       </>
@@ -113,14 +110,14 @@ export default function PublicChat({ error, slug, assistant }) {
   return (
     <>
       <Head>
-        <title>{assistant.name}</title>
+        <title>{assistant.name} | FocoPrime</title>
         <meta name="description" content={assistant.description || FALLBACK_DESCRIPTION} />
         {assistant.logoUrl ? <link rel="icon" href={assistant.logoUrl} /> : null}
         <meta name="theme-color" content={assistant.themeColor} />
       </Head>
 
       <div className="chat-layout" style={{ "--primary": assistant.themeColor }}>
-        {/* Cabeçalho Fixo no Topo */}
+        {/* Cabeçalho Fixo */}
         <header className="chat-header-fixed">
           <div className="header-left">
             {assistant.logoUrl ? (
@@ -132,19 +129,27 @@ export default function PublicChat({ error, slug, assistant }) {
             )}
             <span className="assistant-title">{assistant.name}</span>
           </div>
-          <button className="icon-btn" aria-label="Opções">
-            <i className="fi fi-rr-menu-dots-vertical"></i>
-          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <a href="https://focoprime.online" target="_blank" rel="noreferrer" className="header-plan-badge">
+              Fazer upgrade
+            </a>
+            <button className="icon-btn" aria-label="Opções" onClick={handleNewChat} title="Reiniciar conversa">
+              <i className="fi fi-rr-refresh"></i>
+            </button>
+          </div>
         </header>
 
-        {/* Área de Conversa centralizada e rolável */}
+        {/* Corpo / Mensagens */}
         <main className="chat-body">
-          {messages.length === 0 && (
-            <div className="welcome-heading">
-              <span className="brand-sparkle">✴</span>
-              <h1>Olá, como posso ajudar?</h1>
+          {messages.length === 0 || (messages.length === 1 && messages[0].content === assistant.welcomeMessage) ? (
+            <div className="welcome-container">
+              <h1 className="brand-sparkle-heading">
+                <span className="brand-sparkle">✴</span>
+                {assistant.welcomeMessage ? assistant.welcomeMessage : "Que bom ter você aqui!"}
+              </h1>
             </div>
-          )}
+          ) : null}
 
           <div className="chat-messages">
             {messages.map((message, index) => (
@@ -164,41 +169,51 @@ export default function PublicChat({ error, slug, assistant }) {
           </div>
         </main>
 
-        {/* Rodapé e Barra de Entrada Fixo */}
+        {/* Rodapé com Input Estilo Claude */}
         <footer className="chat-footer-fixed">
           <form onSubmit={sendMessage} className="chat-input-box">
-            {/* Botão de + no lado esquerdo com Animação */}
-            <button
-              type="button"
-              onClick={handleNewChat}
-              className={`action-btn new-chat-btn ${isSpinning ? "spin" : ""}`}
-              title="Nova conversa"
-              aria-label="Nova conversa"
-            >
-              <i className="fi fi-rr-plus"></i>
-            </button>
-
-            <input
-              type="text"
+            <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Digite sua mensagem..."
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  sendMessage(e);
+                }
+              }}
+              placeholder="Digite / para ver as Skills ou envie sua mensagem..."
               className="chat-input"
+              rows={1}
               disabled={loading}
             />
 
-            {/* Botão de Enviar no lado direito */}
-            <button
-              type="submit"
-              className="action-btn send-btn"
-              disabled={!input.trim() || loading}
-              aria-label="Enviar mensagem"
-            >
-              <i className="fi fi-rr-paper-plane"></i>
-            </button>
+            <div className="chat-input-actions">
+              <div className="actions-left">
+                <button type="button" className="action-tool-btn" title="Adicionar anexo">
+                  <i className="fi fi-rr-plus"></i>
+                </button>
+                <div className="model-selector-badge" title="Modelo de IA ativo">
+                  <i className="fi fi-rr-magic-wand" style={{ fontSize: '12px' }}></i>
+                  <span>{assistant.model}</span>
+                </div>
+              </div>
+
+              <div className="actions-right">
+                <button type="button" className="action-tool-btn" title="Comando de voz">
+                  <i className="fi fi-rr-microphone"></i>
+                </button>
+                <button
+                  type="submit"
+                  className="send-btn"
+                  disabled={!input.trim() || loading}
+                  aria-label="Enviar mensagem"
+                >
+                  <i className="fi fi-rr-paper-plane" style={{ fontSize: '12px' }}></i>
+                </button>
+              </div>
+            </div>
           </form>
 
-          {/* Marca d'água */}
           <div className="watermark">
             powered by <strong>FocoPrime</strong>
           </div>
