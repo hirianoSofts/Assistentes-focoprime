@@ -300,3 +300,12 @@ button, input {
   color: #94a3b8;
   margin-top: 10px;
 }
+
+/* Correção universal para ícones Flaticon (uicons) */
+i[class^="fi-"], 
+i[class*=" fi-"] {
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
