@@ -22,7 +22,7 @@ button, input, textarea {
   font-family: "DM Sans", sans-serif;
 }
 
-/* Layout Principal Estilo Claude.ai (Largura 920px) */
+/* Layout Principal (Largura 920px) */
 .chat-layout {
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@ button, input, textarea {
   background: #ffffff;
 }
 
-/* Header Fixo Discreto */
+/* Header Fixo */
 .chat-header-fixed {
   position: fixed;
   top: 0;
@@ -90,7 +90,7 @@ button, input, textarea {
   justify-content: center;
 }
 
-/* Animação de rotação para nova conversa */
+/* Animação de rotação */
 .spin {
   animation: spin 0.5s linear;
 }
@@ -99,7 +99,7 @@ button, input, textarea {
   to { transform: rotate(360deg); }
 }
 
-/* Área de Mensagens */
+/* Corpo de Mensagens */
 .chat-body {
   flex: 1;
   overflow-y: auto;
@@ -108,7 +108,6 @@ button, input, textarea {
   flex-direction: column;
 }
 
-/* Tela de Boas-Vindas usando DM Sans */
 .welcome-container {
   display: flex;
   flex-direction: column;
@@ -138,7 +137,6 @@ button, input, textarea {
   line-height: 1;
 }
 
-/* Mensagens do Chat */
 .chat-messages {
   display: flex;
   flex-direction: column;
@@ -161,7 +159,7 @@ button, input, textarea {
   border-bottom-right-radius: 4px;
 }
 
-/* Mensagem da IA ocupa toda a largura e suporta Markdown */
+/* Mensagem da IA ocupa toda a largura com Markdown */
 .message.ai {
   background: transparent;
   color: #1e293b;
@@ -176,9 +174,14 @@ button, input, textarea {
   font-style: italic;
 }
 
-/* Estilização para Markdown renderizado */
+.markdown-body {
+  font-family: "DM Sans", sans-serif;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
 .markdown-body p {
-  margin: 0 0 10px 0;
+  margin: 0 0 12px 0;
 }
 .markdown-body p:last-child {
   margin-bottom: 0;
@@ -186,6 +189,10 @@ button, input, textarea {
 .markdown-body ul, .markdown-body ol {
   margin: 8px 0;
   padding-left: 20px;
+}
+.markdown-body strong {
+  font-weight: 600;
+  color: #0f172a;
 }
 .markdown-body code {
   background: #f1f5f9;
@@ -200,18 +207,24 @@ button, input, textarea {
   padding: 12px;
   border-radius: 8px;
   overflow-x: auto;
+  margin: 10px 0;
 }
 .markdown-body table {
   width: 100%;
   border-collapse: collapse;
-  margin: 10px 0;
+  margin: 12px 0;
 }
 .markdown-body th, .markdown-body td {
   border: 1px solid #e2e8f0;
   padding: 8px 12px;
+  text-align: left;
+}
+.markdown-body th {
+  background: #f8fafc;
+  font-weight: 600;
 }
 
-/* Barra de Entrada de Texto (Largura 920px) */
+/* Footer / Input Fixo */
 .chat-footer-fixed {
   position: fixed;
   bottom: 0;
@@ -257,7 +270,6 @@ button, input, textarea {
   font-family: "DM Sans", sans-serif;
 }
 
-/* Ferramentas e Botões Inferiores na Barra */
 .chat-input-actions {
   display: flex;
   align-items: center;
@@ -336,7 +348,6 @@ button, input, textarea {
   margin-top: 10px;
 }
 
-/* Correção universal para ícones Flaticon (uicons) */
 i[class^="fi-"], 
 i[class*=" fi-"] {
   line-height: 1;
