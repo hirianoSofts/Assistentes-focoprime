@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 * {
   box-sizing: border-box;
@@ -18,11 +18,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-button, input {
-  font: inherit;
+button, input, textarea {
+  font-family: "DM Sans", sans-serif;
 }
 
-/* Layout Principal Estilo Claude.ai (Largura aumentada para 920px) */
+/* Layout Principal Estilo Claude.ai (Largura 920px) */
 .chat-layout {
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@ button, input {
   background: #ffffff;
 }
 
-/* Header Fixo Discreto (Largura 920px) */
+/* Header Fixo Discreto */
 .chat-header-fixed {
   position: fixed;
   top: 0;
@@ -108,7 +108,7 @@ button, input {
   flex-direction: column;
 }
 
-/* Tela de Boas-Vindas com Estilo Serifado e Asterisco */
+/* Tela de Boas-Vindas usando DM Sans */
 .welcome-container {
   display: flex;
   flex-direction: column;
@@ -120,9 +120,9 @@ button, input {
 }
 
 .brand-sparkle-heading {
-  font-family: "Instrument Serif", serif;
-  font-size: 42px;
-  font-weight: 400;
+  font-family: "DM Sans", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
   color: #111827;
   display: flex;
   align-items: center;
@@ -134,7 +134,7 @@ button, input {
 
 .brand-sparkle {
   color: var(--primary, #e05638);
-  font-size: 38px;
+  font-size: 30px;
   line-height: 1;
 }
 
@@ -149,7 +149,6 @@ button, input {
 .message {
   padding: 12px 16px;
   border-radius: 12px;
-  max-width: 85%;
   line-height: 1.5;
   font-size: 15px;
 }
@@ -158,13 +157,17 @@ button, input {
   background: #f1f5f9;
   color: #0f172a;
   align-self: flex-end;
+  max-width: 85%;
   border-bottom-right-radius: 4px;
 }
 
+/* Mensagem da IA ocupa toda a largura e suporta Markdown */
 .message.ai {
   background: transparent;
   color: #1e293b;
   align-self: flex-start;
+  width: 100%;
+  max-width: 100%;
   padding-left: 0;
 }
 
@@ -173,7 +176,42 @@ button, input {
   font-style: italic;
 }
 
-/* Barra de Entrada de Texto (Largura aumentada para 920px) */
+/* Estilização para Markdown renderizado */
+.markdown-body p {
+  margin: 0 0 10px 0;
+}
+.markdown-body p:last-child {
+  margin-bottom: 0;
+}
+.markdown-body ul, .markdown-body ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+.markdown-body code {
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 14px;
+}
+.markdown-body pre {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+.markdown-body th, .markdown-body td {
+  border: 1px solid #e2e8f0;
+  padding: 8px 12px;
+}
+
+/* Barra de Entrada de Texto (Largura 920px) */
 .chat-footer-fixed {
   position: fixed;
   bottom: 0;
@@ -206,6 +244,7 @@ button, input {
   border: none;
   background: transparent;
   outline: none;
+  font-family: "DM Sans", sans-serif;
   font-size: 15px;
   color: #0f172a;
   width: 100%;
@@ -215,6 +254,7 @@ button, input {
 
 .chat-input::placeholder {
   color: #94a3b8;
+  font-family: "DM Sans", sans-serif;
 }
 
 /* Ferramentas e Botões Inferiores na Barra */
