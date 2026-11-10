@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
+import ReactMarkdown from "react-markdown";
 
 const FALLBACK_DESCRIPTION = "Assistente inteligente FocoPrime";
 
@@ -43,7 +44,6 @@ export default function PublicChat({ error, slug, assistant }) {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    // Mantém o chat limpo inicialmente para exibir apenas a saudação centralizada
     setMessages([]);
   }, [assistant]);
 
@@ -157,7 +157,13 @@ export default function PublicChat({ error, slug, assistant }) {
                 key={`${index}-${message.role}`}
                 className={`message ${message.role === "user" ? "user" : "ai"}`}
               >
-                {message.content}
+                {message.role === "assistant" ? (
+                  <div className="markdown-body">
+                    <ReactMarkdown>{message.content}</ReactMarkdown>
+                  </div>
+                ) : (
+                  message.content
+                )}
               </div>
             ))}
             {loading && (
@@ -181,7 +187,7 @@ export default function PublicChat({ error, slug, assistant }) {
                   sendMessage(e);
                 }
               }}
-              placeholder="Olá, em que posso ser útil..."
+              placeholder="Digite / para ver as Skills ou envie sua mensagem..."
               className="chat-input"
               rows={1}
               disabled={loading}
