@@ -72,6 +72,7 @@ export default function PublicChat({ error, slug, assistant }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           slug,
+          message: userText, // Envia explicitamente a mensagem atual
           systemPrompt: assistant.systemPrompt,
           messages: nextMessages
         })
@@ -79,6 +80,7 @@ export default function PublicChat({ error, slug, assistant }) {
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Não foi possível obter uma resposta.");
+      
       setMessages([...nextMessages, { role: "assistant", content: data.reply }]);
     } catch (error) {
       setMessages([
@@ -114,7 +116,6 @@ export default function PublicChat({ error, slug, assistant }) {
       </Head>
 
       <div className="chat-layout" style={{ "--primary": assistant.themeColor }}>
-        {/* Cabeçalho Fixo */}
         <header className="chat-header-fixed">
           <div className="header-left">
             {assistant.logoUrl ? (
@@ -139,7 +140,6 @@ export default function PublicChat({ error, slug, assistant }) {
           </div>
         </header>
 
-        {/* Corpo / Mensagens */}
         <main className="chat-body">
           {messages.length === 0 ? (
             <div className="welcome-container">
@@ -168,7 +168,6 @@ export default function PublicChat({ error, slug, assistant }) {
           </div>
         </main>
 
-        {/* Rodapé com Input */}
         <footer className="chat-footer-fixed">
           <form onSubmit={sendMessage} className="chat-input-box">
             <textarea
