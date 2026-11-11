@@ -72,7 +72,7 @@ export default function PublicChat({ error, slug, assistant }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           slug,
-          message: userText, // Envia explicitamente a mensagem atual
+          message: userText,
           systemPrompt: assistant.systemPrompt,
           messages: nextMessages
         })
