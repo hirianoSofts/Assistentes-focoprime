@@ -22,7 +22,6 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Método não permitido' });
   }
 
-  // Compatibilidade com o formato enviado pelo frontend (pega o último texto de messages ou o campo message)
   const { slug, message, messages, imageUrl } = req.body;
   
   let userMessage = message;
@@ -99,17 +98,46 @@ export default async function handler(req, res) {
       usageData.imageUploadsCount += 1;
     }
 
-    // 4. Processamento de Tokens e Contadores
-    const estimatedTokens = Math.ceil((userMessage.length + 50) / 4);
+    // 4. Chamada Real da API da Groq
+    const systemPrompt = aiData.systemPrompt || "Você é um assistente útil e prestativo.";
+    
+    // Mapeia o histórico ou usa a mensagem atual com o system prompt da IA criada
+    const chatHistory = Array.isArray(messages) && messages.length > 0 
+      ? messages.map(m => ({ role: m.role, content: m.content }))
+      : [{ role: "user", content: userMessage }];
+
+    const groqResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile", // Modelo robusto e veloz da Groq
+        messages: [
+          { role: "system", content: systemPrompt },
+          ...chatHistory
+        ],
+        temperature: 0.7
+      })
+    });
+
+    if (!groqResponse.ok) {
+      const errorData = await groqResponse.text();
+      console.error("Erro na API da Groq:", errorData);
+      throw new Error("Falha ao comunicar com o motor de inteligência artificial.");
+    }
+
+    const groqData = await groqResponse.json();
+    const aiReply = groqData.choices?.[0]?.message?.content || "Desculpe, não consegui gerar uma resposta.";
+
+    // 5. Contagem de Tokens e Atualização no Firebase
+    const estimatedTokens = groqData.usage?.total_tokens || Math.ceil((userMessage.length + aiReply.length) / 4);
     
     usageData.messagesCount += 1;
     usageData.tokensUsed = (usageData.tokensUsed || 0) + estimatedTokens;
 
-    // Atualiza os dados de uso no Firebase em tempo real
     await usageRef.set(usageData);
-
-    // 5. Resposta gerada
-    const aiReply = `Olá! Resposta gerada pelo assistente ${aiData.name} usando o modelo ${aiData.model || 'Padrão'}.`;
 
     return res.status(200).json({
       success: true,
