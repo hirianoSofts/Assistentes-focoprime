@@ -1,3 +1,4 @@
+// CÓDIGO pages/api/chat.js
 import { initializeApp, getApps } from "firebase-admin/app";
 import { getDatabase } from "firebase-admin/database";
 
