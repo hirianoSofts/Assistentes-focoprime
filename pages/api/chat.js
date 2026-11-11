@@ -113,7 +113,7 @@ export default async function handler(req, res) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile", // Modelo robusto e veloz da Groq
+        model: "openai/gpt-oss-120b", // Modelo robusto e veloz da Groq
         messages: [
           { role: "system", content: systemPrompt },
           ...chatHistory
