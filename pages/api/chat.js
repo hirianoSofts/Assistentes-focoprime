@@ -1,7 +1,6 @@
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getDatabase } from "firebase-admin/database";
 
-// Inicialização segura do Firebase Admin SDK na Vercel
 if (!getApps().length) {
   if (process.env.FIREBASE_SERVICE_ACCOUNT) {
     const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
@@ -10,7 +9,6 @@ if (!getApps().length) {
       databaseURL: "https://focoplataforms-default-rtdb.europe-west1.firebasedatabase.app"
     });
   } else {
-    // Fallback caso utilize regras abertas ou ambiente de teste
     initializeApp({
       databaseURL: "https://focoplataforms-default-rtdb.europe-west1.firebasedatabase.app"
     });
@@ -24,10 +22,21 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Método não permitido' });
   }
 
-  const { slug, message, imageUrl } = req.body;
+  // Compatibilidade com o formato enviado pelo frontend (pega o último texto de messages ou o campo message)
+  const { slug, message, messages, imageUrl } = req.body;
+  
+  let userMessage = message;
+  if (!userMessage && Array.isArray(messages) && messages.length > 0) {
+    const lastMsg = messages[messages.length - 1];
+    userMessage = lastMsg.content;
+  }
 
   if (!slug) {
     return res.status(400).json({ error: 'Slug da IA não fornecido.' });
+  }
+
+  if (!userMessage) {
+    return res.status(400).json({ error: 'Mensagem não fornecida.' });
   }
 
   try {
@@ -36,14 +45,14 @@ export default async function handler(req, res) {
     const aiSnapshot = await aiRef.get();
 
     if (!aiSnapshot.exists()) {
-      return res.status(404).json({ error: 'Inteligência Artificial não encontrada.' });
+      return res.status(404).json({ error: 'Inteligência Artificial não encontrada no banco de dados.' });
     }
 
     const aiData = aiSnapshot.val();
     const ownerUid = aiData.ownerUid;
 
     if (!ownerUid) {
-      return res.status(400).json({ error: 'Criador desta IA não identificado.' });
+      return res.status(400).json({ error: 'Criador desta IA não identificado nos registros.' });
     }
 
     // 2. Buscar os dados do criador e o plano atual
@@ -57,7 +66,6 @@ export default async function handler(req, res) {
     const userData = userSnapshot.val();
     const planName = userData.plan || 'Plano Base';
     
-    // Extrai as features configuradas no plano do criador
     const features = userData.features || {
       messagesPerDay: 10,
       imageUploadsPerDay: 0,
@@ -73,7 +81,6 @@ export default async function handler(req, res) {
       ? usageSnapshot.val() 
       : { messagesCount: 0, imageUploadsCount: 0, tokensUsed: 0 };
 
-    // Validação de Limite de Mensagens
     const maxMessages = features.messagesPerDay || (planName === 'Plano Base' ? 10 : (features.tokens ? Math.floor(features.tokens / 10) : 50));
     
     if (usageData.messagesCount >= maxMessages) {
@@ -82,7 +89,6 @@ export default async function handler(req, res) {
       });
     }
 
-    // Validação de Upload de Imagens
     if (imageUrl) {
       const maxImages = features.imageUploadsPerDay || 0;
       if (maxImages === 0 || usageData.imageUploadsCount >= maxImages) {
@@ -94,15 +100,15 @@ export default async function handler(req, res) {
     }
 
     // 4. Processamento de Tokens e Contadores
-    const estimatedTokens = Math.ceil((message.length + 50) / 4);
+    const estimatedTokens = Math.ceil((userMessage.length + 50) / 4);
     
     usageData.messagesCount += 1;
     usageData.tokensUsed = (usageData.tokensUsed || 0) + estimatedTokens;
 
-    // Atualiza os dados de uso no Firebase em tempo real a cada interação
+    // Atualiza os dados de uso no Firebase em tempo real
     await usageRef.set(usageData);
 
-    // 5. Chamada real ou simulação da resposta da IA baseada no modelo configurado (`aiData.model`)
+    // 5. Resposta gerada
     const aiReply = `Olá! Resposta gerada pelo assistente ${aiData.name} usando o modelo ${aiData.model || 'Padrão'}.`;
 
     return res.status(200).json({
@@ -117,7 +123,7 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Erro ao processar chat:', error);
-    return res.status(500).json({ error: 'Erro interno ao processar a mensagem.' });
+    console.error('Erro detalhado ao processar chat:', error);
+    return res.status(500).json({ error: 'Erro interno ao processar a mensagem: ' + error.message });
   }
 }
