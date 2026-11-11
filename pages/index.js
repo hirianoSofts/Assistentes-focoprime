@@ -24,6 +24,30 @@ export default function Home() {
         />
         <link rel="canonical" href="https://focoprime.online/" />
 
+        {/* Open Graph / Facebook / WhatsApp / LinkedIn */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://focoprime.online/" />
+        <meta property="og:title" content="FocoPrime Studio" />
+        <meta
+          property="og:description"
+          content="Plataforma de inteligência artificial da FocoPrime. Crie, customize e escale assistentes virtuais e APIs de IA em tempo real."
+        />
+        <meta property="og:image" content="https://dashboard.focoprime.online/assets/og-imagem.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:site_name" content="FocoPrime Studio" />
+
+        {/* Twitter / X Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://focoprime.online/" />
+        <meta name="twitter:title" content="FocoPrime Studio" />
+        <meta
+          name="twitter:description"
+          content="Plataforma de inteligência artificial da FocoPrime. Crie, customize e escale assistentes virtuais e APIs de IA em tempo real."
+        />
+        <meta name="twitter:image" content="https://dashboard.focoprime.online/assets/og-imagem.png" />
+
         {/* Favicon */}
         <link
           rel="icon"
